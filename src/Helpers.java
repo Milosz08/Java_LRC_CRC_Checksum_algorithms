@@ -20,30 +20,30 @@ import java.util.Scanner;
 
 public class Helpers {
 
-    // możliwe znaki w formacie HEX
+    // possible characters in HEX format
     private final static String HEX_CHARS = "0123456789ABCDEF";
-    // metoda do wprowadzania danych z konsoli
+    // method for entering data from the console
     private final static Scanner _scanner = new Scanner(System.in);
 
     private static String _allHexChars; // ciąg znaków HEX wprowadzonych przez użytkownika
 
-    // metoda do wprowadzania przykładowych ramek
+    // method for entering sample frames
     protected static void insertData() {
-        boolean ifError; // zmienna identyfikująca błąd wprowadzania ramki
+        boolean ifError; // variable identifying a frame insertion error
         do {
-            ifError = false; // resetuj błąd
+            ifError = false; // reset error
             System.out.println("Wprowadź ciąg znaków w kodzie szesnastkowym (HEX):");
-            _allHexChars = _scanner.nextLine(); // wczytaj linię znaków
-            // przejdź przez wszystkie wprowadzone znaki
+            _allHexChars = _scanner.nextLine(); // insert single line of characters
+            // go through all the characters entered
             for(int i = 0; i < _allHexChars.length(); i++) {
-                // jeśli znak nie jest jednym ze składowych HEX, ustaw błąd oraz wyczyść bufor
+                // if the character is not one of the HEX components, set an error and clear the buffer
                 if (!HEX_CHARS.toLowerCase().contains(_allHexChars.charAt(i) + "".toLowerCase())) {
                     ifError = true;
                     _allHexChars = "";
                     break;
                 }
             }
-            // jeśli podano nieparzystą ilość znaków, dodaj zero przed ostatnim znakiem
+            // if an odd number of characters is given, add zero before the last character
             if (_allHexChars.length() % 2 != 0) {
                 String buffered = _allHexChars.substring(0, _allHexChars.length() - 1) + "0";
                 _allHexChars = buffered + _allHexChars.charAt(_allHexChars.length() - 1);
@@ -51,11 +51,11 @@ public class Helpers {
         } while (ifError);
     }
 
-    // metoda zamieniająca ciąg znaków na liczbę w formacie HEX
+    // method that converts a string to a number in HEX format
     protected static byte[] hexStringToByteArray() {
-        // skonwertuj tuple na tablicę bajtów
+        // convert tuple to byte array
         byte[] data = new byte[_allHexChars.length() / 2];
-        // przejdź przez kolejne dwójki wartości HEX i przypisz zamienioną wartość bajtową typu HEX
+        // pass through consecutive binary HEX values and assign the swapped HEX byte value
         for (int i = 0; i < _allHexChars.length(); i += 2) {
             data[i / 2] = (byte) ((Character.digit(_allHexChars.charAt(i), 16) << 4) +
                     Character.digit(_allHexChars.charAt(i + 1), 16));

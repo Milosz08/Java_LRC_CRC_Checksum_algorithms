@@ -18,19 +18,18 @@
 
 public class LRC extends Helpers {
 
-    private static byte _lrlData; // wartość HEX obliczonej sumy kontrolnej LRC
+    private static byte _lrlData; // HEX value of the calculated LRC checksum
 
-    // metoda obliczająca LRC
     private static void lrcAlgorithm() {
         byte[] allHexValues = hexStringToByteArray();
-        // przejdź przez wszystkie wartości hex i dodaj je do siebie
+        // go through all the hex values and add them together
         for (byte allHexValue : allHexValues) {
             _lrlData += allHexValue;
         }
-        // odejmij wartość 256 (w HEX to 0x100)
+        // subtract the value 256 (in HEX it is 0x100)
         _lrlData = (byte)(0x100 - _lrlData);
         System.out.println("Obliczona ramka (HEX):");
-        // pokaż obliczoną ramkę w formacie HEX
+        // show the calculated frame in HEX format
         System.out.printf("%02X %n", _lrlData);
     }
 

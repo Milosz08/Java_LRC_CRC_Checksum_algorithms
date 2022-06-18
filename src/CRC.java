@@ -18,37 +18,37 @@
 
 public class CRC extends Helpers {
 
-    private static final byte _crcGenerator = 0x31; // mnożnik CRC (polynomial generator)
-    private static int _crcData; // suma kontrolna CRC
+    private static final byte _crcGenerator = 0x31; // CRC polynomial generator
+    private static int _crcData; // CRC checksum
 
     private static void crcAlgorithm() {
-        // tablica bajtów z wartościami wprowadzonymi przez użytkownika
+        // array of bytes with user input values
         byte[] convertedValues = hexStringToByteArray();
-        // tablica bajtów powiększona o wartość 0x00
+        // byte array incremented by 0x00
         byte[] inputStream = new byte[convertedValues.length + 1];
         for(int i = 0; i < convertedValues.length; i++) {
             inputStream[i] = convertedValues[i];
         }
         inputStream[convertedValues.length] = 0x00;
-        // przejdź przez wszystkie bajty wprowadzone przez użytkownika
+        // go through all the bytes entered by the user
         for(byte value : inputStream) {
-            // przejdź przez wszystkie bity w iterowanym bajcie
+            // go through all the bits in the iterated byte
             for(int i = 7; i >= 0; i--) {
-                // sprawdź, czy został ustawiony najstarszy bit (MSB)
+                // check if the most significiant bit (MSB) has been set
                 if ((_crcData & 0x80) != 0) {
-                    _crcData <<= 1; // przesuń wartość o jeden bit w lewo
-                    // jeśli 1 to ustaw najmłodszy bit na 1, jeśli 0 to ustaw najmłodszy bit na 0
+                    _crcData <<= 1; // shift the value one bit to the left
+                    // if 1 then set LSB bit to 1, if 0 then set the youngest bit to 0
                     _crcData = ((value & (1 << i)) != 0) ? (_crcData | 0x01) : (_crcData & 0xFE);
                     _crcData ^= _crcGenerator; // wykonaj operację XOR na wartości crc i generatorze
                 } else {
-                    // jeśli najstarszy bit nie został ustawiony, wykonaj tylko przesunięcie bitu w lewo
+                    // if MSB has not been set, only shift the bit to the left
                     _crcData <<= 1;
                     _crcData = ((value & (1 << i)) != 0) ? (_crcData | 0x01) : (_crcData & 0xFE);
                 }
             }
         }
         System.out.println("Obliczony CRC (HEX):");
-        // pokaż obliczony CRC w formacie HEX
+        // show the calculated CRC in HEX format
         System.out.printf("%02X %n", _crcData);
     }
 

@@ -18,9 +18,9 @@
 
 public class CRCopt extends Helpers {
 
-    private static int _crcData; // obliczona suma kontrolna CRC
+    private static int _crcData; // calculated CRC checksum
 
-    // tablica z wartościami wielomianu używanymi do wyznaczania CRC
+    // an array of polynomial values used to determine CRC
     private static final int[] _crcTable = new int[] {
             0x00, 0x31, 0x62, 0x53, 0xC4, 0xF5, 0xA6, 0x97, 0xB9, 0x88, 0xDB, 0xEA, 0x7D,
             0x4C, 0x1F, 0x2E, 0x43, 0x72, 0x21, 0x10, 0x87, 0xB6, 0xE5, 0xD4, 0xFA, 0xCB,
@@ -45,16 +45,16 @@ public class CRCopt extends Helpers {
     };
 
     private static void crcOptAlgorithm() {
-        // tablica bajtów z wartościami wprowadzonymi przez użytkownika
+        // array of bytes with user input values
         byte[] convertedValues = hexStringToByteArray();
-        // przejdź przez wszystkie bajty wprowadzone przez użytkownika
+        // go through all the bytes entered by the user
         for(byte value : convertedValues) {
-            // przypisz wartość z tablicy na podstawie indeksu uzyskanego z operacji XOR na
-            // aktualnie iterowanym bajcie
+            // assign a value from the array based on the index obtained from the XOR operation on
+            // the currently iterated byte
             _crcData = _crcTable[(_crcData ^ value) & 0xFF];
         }
         System.out.println("Obliczony CRC (optymalizacja) (HEX):");
-        // pokaż obliczony CRC w formacie HEX
+        // show the calculated CRC in HEX format
         System.out.printf("%02X %n", _crcData);
     }
 
