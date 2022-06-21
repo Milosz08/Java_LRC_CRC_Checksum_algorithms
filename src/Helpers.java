@@ -25,7 +25,7 @@ public class Helpers {
     // method for entering data from the console
     private final static Scanner _scanner = new Scanner(System.in);
 
-    private static String _allHexChars; // ciąg znaków HEX wprowadzonych przez użytkownika
+    private static String _allHexChars; // HEX string entered by the user in sout method
 
     // method for entering sample frames
     protected static void insertData() {
