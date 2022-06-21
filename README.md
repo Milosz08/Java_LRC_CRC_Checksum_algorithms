@@ -4,7 +4,7 @@ Simple Java program to calculate checksums of:
 - CRC (not optimised version)
 - CRC (datatable optimised version)
 
-CRC algorithm is written for polynomial `8x+5x+4x+1 (0x31)` unoptimized version and optimized version).
+CRC algorithm is written for polynomial `8x+5x+4x+1 (0x31)` (unoptimized version and optimized version).
 
 ## Compile program
 
